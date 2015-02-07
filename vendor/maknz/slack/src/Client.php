@@ -353,7 +353,6 @@ class Client {
     $payload = $this->preparePayload($message);
 
     $encoded = json_encode($payload, JSON_UNESCAPED_UNICODE);
-    Log::info($encoded);
     $this->guzzle->post($this->endpoint, ['body' => $encoded]);
   }
 

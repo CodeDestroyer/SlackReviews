@@ -13,5 +13,7 @@
 
 Route::get('/', function()
 {
+	Slack::send('Hello world!');
+	Log::info("test");
 	return View::make('hello');
 });
