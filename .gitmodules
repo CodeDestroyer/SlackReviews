@@ -1,0 +1,3 @@
+[submodule "hubot"]
+	path = hubot
+	url = git@github.com:CodeDestroyer/CodeDadBot.git
