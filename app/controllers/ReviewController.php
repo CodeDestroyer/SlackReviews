@@ -11,7 +11,8 @@ class ReviewController extends BaseController {
 
     public function testThis()
     {
-        echo $this->_review->fooBar("i win");
+        $name = Input::get('ticket');
+        Slack::to('@pat')->send($name);
     }
 
 }
