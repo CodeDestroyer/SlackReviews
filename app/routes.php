@@ -13,7 +13,14 @@
 
 Route::get('/', function()
 {
-	Slack::send('Hello world!');
+	Slack::send('Die!');
+	Slack::to('@pat')->send('am i real?');
 	Log::info("test");
 	return View::make('hello');
+});
+
+
+Route::group(['prefix' => 'reviews'], function () {
+	Route::get('test', 'ReviewController@testThis');
+
 });

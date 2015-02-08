@@ -18,8 +18,6 @@ class HomeController extends BaseController {
 	public function showWelcome()
 	{
 		die();
-		Slack::send('Hello world!');
-		Log::info("test");
 		return View::make('hello');
 	}
 
