@@ -15,14 +15,14 @@ class CreateReviews extends Migration {
 		Schema::create('reviews', function($table)
 		{
 			$table->increments('id');
-			$table->timestamp('submission_time');
-			$table->string('submission_user', 50);
-			$table->string('repo_link', 100);
-			$table->text('submission_comments');
-			$table->string('completion_user', 50);
-			$table->text('completion_comments');
-			$table->timestamp('completion_time');
-			$table->string('repo_hex')->unique();
+			$table->timestamp('submission_time')->nullable();
+			$table->string('submission_user', 50)->nullable();
+			$table->string('repo_link', 100)->nullable();
+			$table->text('submission_comments')->nullable();
+			$table->string('completion_user', 50)->nullable()->default(null);
+			$table->text('completion_comments')->nullable();
+			$table->timestamp('completion_time')->nullable();
+			$table->string('repo_hex')->unique()->nullable();
 		});
 	}
 

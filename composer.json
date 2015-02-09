@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"maknz/slack": "~1.1"
+		"maknz/slack": "~1.1",
+	  	"doctrine/dbal":"~2.4"
 	},
 	"autoload": {
 		"classmap": [
@@ -15,6 +16,7 @@
 			"app/models",
 		  	"app/repositories",
 		  	"app/providers",
+		  	"app/events",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"

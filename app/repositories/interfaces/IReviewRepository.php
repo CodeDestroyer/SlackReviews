@@ -1,6 +1,7 @@
 <?php namespace CodeDad\Contracts\Review;
 
-interface IReviewRepository {
+interface IReviewRepository
+{
 
     public function all();
 

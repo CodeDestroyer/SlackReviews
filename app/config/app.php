@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Maknz\Slack\SlackServiceProvider',
 		'CodeDad\Reviews\ReviewServiceProvider',
+		'CodeDad\Events\EventServiceProvider',
 
 	),
 
@@ -191,6 +192,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Slack' 			=> 'Maknz\Slack\Facades\Slack',
+		'Carbon'			=> 'Carbon\Carbon',
 
 	),
 

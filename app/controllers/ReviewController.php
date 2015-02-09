@@ -1,6 +1,5 @@
 <?php
 use CodeDad\Repositories\Review\ReviewRepository;
-
 class ReviewController extends BaseController {
 
     protected $_review;
@@ -9,10 +8,35 @@ class ReviewController extends BaseController {
         $this->_review = $review;
     }
 
-    public function testThis()
+    public function requestReview()
     {
-        $name = Input::get('ticket');
-        Slack::to('@pat')->send($name);
+        $request = Input::all();
+        $this->_review->addReview($request);
+    }
+    public function claimReview()
+    {
+        $request = Input::all();
+        $this->_review->claimReview($request);
+    }
+    public function completeReview()
+    {
+        $request = Input::all();
+        $this->_review->completeReview($request);
+    }
+
+    public function listReviewsToUser()
+    {
+        $user = Input::get('user');
+        $reviews = $this->_review->listAll();
+        $viewData = View::make('listReviews')->with('reviews',$reviews)->render();
+        $return = array(
+            'user' => $user,
+            'viewData' => $viewData
+        );
+        Event::fire('review.sendList', array($return));
+
+
+
     }
 
 }

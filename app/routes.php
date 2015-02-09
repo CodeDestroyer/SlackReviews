@@ -11,6 +11,10 @@
 |
 */
 
+Event::listen('illuminate.query', function($query)
+{
+	Log::info($query);
+});
 Route::get('/', function()
 {
 	Slack::send('Die!');
@@ -21,6 +25,8 @@ Route::get('/', function()
 
 
 Route::group(['prefix' => 'reviews'], function () {
-	Route::get('test', 'ReviewController@testThis');
-
+	Route::get('request', 'ReviewController@requestReview');
+	Route::get('complete', 'ReviewController@completeReview');
+	Route::get('claim', 'ReviewController@claimReview');
+	Route::get('list','ReviewController@listReviewsToUser');
 });

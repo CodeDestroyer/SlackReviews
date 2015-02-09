@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ReviewServiceProvider extends ServiceProvider {
+class ReviewServiceProvider extends ServiceProvider
+{
 
     public function register()
     {
