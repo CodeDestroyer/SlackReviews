@@ -30,3 +30,8 @@ Route::group(['prefix' => 'reviews'], function () {
 	Route::get('claim', 'ReviewController@claimReview');
 	Route::get('list','ReviewController@listReviewsToUser');
 });
+
+Route::group(['prefix' => 'deploy'], function () {
+	Route::get('request', 'DeploymentController@addDeployment');
+;
+});

@@ -124,6 +124,7 @@ return array(
 		'Maknz\Slack\SlackServiceProvider',
 		'CodeDad\Reviews\ReviewServiceProvider',
 		'CodeDad\Events\EventServiceProvider',
+		'CodeDad\Deployments\DeploymentServiceProvider',
 
 	),
 
