@@ -31,7 +31,7 @@ class Review extends Eloquent
      */
     public function scopeUnassigned($query)
     {
-        return $query->whereNull('completion_user')->orWhere('isCompleted',1);
+        return $query->whereNull('completion_user');
     }
 
 

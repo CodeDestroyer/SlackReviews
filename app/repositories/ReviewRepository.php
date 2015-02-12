@@ -22,19 +22,9 @@ class ReviewRepository implements IReviewRepository
         $this->_events = $events;
     }
 
-    public function all()
-    {
-        return $this->_review->all();
-    }
-
     public function listAll()
     {
         return $this->_review->where('isCompleted',0)->get();
-    }
-
-    public function find($id)
-    {
-        return $this->_review->find($id);
     }
 
     public function addReview($review)
@@ -46,7 +36,9 @@ class ReviewRepository implements IReviewRepository
         } else
         {
             $this->_events->fire('review.exists', array($review));
+            return false;
         }
+        return true;
     }
 
     public function completeReview($update)
@@ -62,7 +54,7 @@ class ReviewRepository implements IReviewRepository
                     'ticket' => $ticket
                 );
                 $this->_events->fire('review.canNotComplete', array($event));
-                return;
+                return false;
             }
             $update['isCompleted'] = true;
             $update['completion_time'] = Carbon::now();
@@ -76,12 +68,13 @@ class ReviewRepository implements IReviewRepository
                 'ticket' => $ticket
             );
             $this->_events->fire('review.canNotComplete', array($event));
+            return false;
         }
+        return true;
     }
 
     public function claimReview($request)
     {
-
         $ticket = $request['jira_ticket'];
         $user = $request['completion_user'];
         try {
@@ -95,7 +88,9 @@ class ReviewRepository implements IReviewRepository
                 'ticket' => $ticket
             );
             $this->_events->fire('review.notAvail', array($event));
+            return false;
         }
+        return $review;
     }
 
 

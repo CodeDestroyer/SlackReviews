@@ -1,7 +1,7 @@
 Code Review Status<?php echo "\r\n" ;?>
 -------------------------------------------------<?php echo "\r\n" ;?>
 <?php if ($reviews->isEmpty()): ?>
-
+No Code to Review!
 <?php else: ?>
     <?php foreach($reviews as $review): ?>
 <?php echo "Ticket: *{$review['jira_ticket']}* created by {$review['request_user']} posted ".

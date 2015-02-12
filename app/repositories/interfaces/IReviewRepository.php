@@ -3,10 +3,7 @@
 interface IReviewRepository
 {
 
-    public function all();
-
-    public function find($hash);
-
-    public function addReview($ticket);
-
+    public function addReview($review);
+    public function completeReview($review);
+    public function claimReview($review);
 }
