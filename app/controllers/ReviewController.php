@@ -18,11 +18,12 @@ class ReviewController extends BaseController
     public function requestReview()
     {
         $request = Input::all();
-        if ($this->_review->addReview($request)) {
-            return Response::json("Code Review Request Successful");
-        } else {
-            return Response::json("Code Review Already Exists!");
+        try {
+            $this->_review->addReview($request);
+        } catch (Exception $e) {
+            return Response::json($e->getMessage());
         }
+        return Response::json("Code Review Request Successful");
     }
 
     /**
@@ -31,11 +32,12 @@ class ReviewController extends BaseController
     public function completeReview()
     {
         $request = Input::all();
-        if($this->_review->completeReview($request)){
-            return Response::json("Thank you for code-review!");
-        } else {
-            return Response::json("Review does not exist or you do not have ownership of review");
+        try {
+            $this->_review->completeReview($request);
+        } catch (Exception $e) {
+            return Response::json($e->getMessage());
         }
+        return Response::json("Thank you for code-review!");
     }
 
     /**
@@ -58,18 +60,29 @@ class ReviewController extends BaseController
     public function claimReview()
     {
         $request = Input::all();
-        $review = $this->_review->claimReview($request);
-        if ($review) {
-            return Response::json("You have claimed {$review['jira_ticket']}. Notes from {$review['request_user']}: {$review['request_comments']}");
-        }
-        else {
-            return Response::json("Ticket {$request['jira_ticket']} cannot be claimed. Already claimed or wrong ID");
+
+        try {
+            $review = $this->_review->claimReview($request);
+
+        } catch (Exception $e) {
+            return Response::json($e->getMessage());
         }
 
+        return Response::json("You have claimed {$review['jira_ticket']}. Notes from {$review['request_user']}: {$review['request_comments']}");
     }
 
-    public function dropReview(){
-
+    /**
+     * @return mixed
+     */
+    public function dropReview()
+    {
+        $review = Input::all();
+        try{
+            $this->_review->dropReview($review);
+        } catch(Exception $e) {
+            return Response::json($e->getMessage());
+        }
+        return Response::json("You have successfully dropped the review");
     }
 
 }

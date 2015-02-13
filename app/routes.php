@@ -29,6 +29,7 @@ Route::group(['prefix' => 'reviews'], function () {
 	Route::get('complete', 'ReviewController@completeReview');
 	Route::get('claim', 'ReviewController@claimReview');
 	Route::get('list','ReviewController@listReviewsToUser');
+	Route::get('drop','ReviewController@dropReview');
 });
 
 Route::group(['prefix' => 'deploy'], function () {

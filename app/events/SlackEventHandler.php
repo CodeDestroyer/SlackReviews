@@ -48,6 +48,12 @@ class SlackEventHandler
         Slack::to(self::REVIEW_CHANNEL)->send("{$ticket} passed the code review by {$reviewer}");
     }
 
+    public function onReviewDropped($event)
+    {
+        $ticket =   $event['jira_ticket'];
+        Slack::to(self::REVIEW_CHANNEL)->send("Ticket: {$ticket} was dropped and has been placed back onto the queue");
+    }
+
     /**
      * Register the listeners for the subscriber.
      *
@@ -59,6 +65,7 @@ class SlackEventHandler
         $events->listen('review.submitted', 'CodeDad\Events\SlackEventHandler@onReviewCreation');
         $events->listen('review.claimed', 'CodeDad\Events\SlackEventHandler@onReviewClaim');
         $events->listen('review.completed','CodeDad\Events\SlackEventHandler@onReviewComplete');
+        $events->listen('review.dropped','CodeDad\Events\SlackEventHandler@onReviewDropped');
 
     }
 
