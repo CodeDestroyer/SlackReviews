@@ -17,6 +17,7 @@ class Deployment extends Eloquent
      * @var array
      */
     protected $guarded = array('id');
+    protected $table = 'deploys';
     /**
      * @var array
      */

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 class SlackEventHandler
 {
     CONST REVIEW_CHANNEL = "#codetest";
+    CONST Deploy_CHANNEL = '#codetest';
 
     /**
      * Creates a review
@@ -54,6 +55,38 @@ class SlackEventHandler
         Slack::to(self::REVIEW_CHANNEL)->send("Ticket: {$ticket} was dropped and has been placed back onto the queue");
     }
 
+
+    public function onDeploymentCreation($event){
+        $ticket = $event['jira_ticket'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} is ready for Staging");
+    }
+
+    public function onDeploymentStaged($event){
+        $ticket = $event['jira_ticket'];
+        $user = $event['user'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been deployed to Staging");
+        Slack::to("@{$user}")->send("Please verify {$ticket} in Staging");
+
+    }
+
+    public function onStagingValidation($event){
+        $ticket = $event['jira_ticket'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been validated in Staging and is ready for deployment");
+
+    }
+    public function onDeployment($event)
+    {
+        $user = $event['user'];
+        $ticket = $event['jira_ticket'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been deployed to Production");
+        Slack::to("@{$user}")->send("Please verify {$ticket} in Production");
+
+    }
+    public function onProductionValidation($event){
+        $ticket = $event['jira_ticket'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been validated in Production!");
+
+    }
     /**
      * Register the listeners for the subscriber.
      *
@@ -66,6 +99,12 @@ class SlackEventHandler
         $events->listen('review.claimed', 'CodeDad\Events\SlackEventHandler@onReviewClaim');
         $events->listen('review.completed','CodeDad\Events\SlackEventHandler@onReviewComplete');
         $events->listen('review.dropped','CodeDad\Events\SlackEventHandler@onReviewDropped');
+        $events->listen('deployment.submitted','CodeDad\Events\SlackEventHandler@onDeploymentCreation');
+        $events->listen('deployment.staged','CodeDad\Events\SlackEventHandler@onDeploymentStaged');
+        $events->listen('deployment.isValidatedStaging','CodeDad\Events\SlackEventHandler@onStagingValidation');
+        $events->listen('deployment.isDeployed','CodeDad\Events\SlackEventHandler@onDeployment');
+        $events->listen('deployment.isValidated','CodeDad\Events\SlackEventHandler@onProductionValidation');
+
 
     }
 
