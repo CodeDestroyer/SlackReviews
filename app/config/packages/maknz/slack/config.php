@@ -13,7 +13,7 @@ return [
   |
   */
 
-  'endpoint' => 'https://hooks.slack.com/services/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',
+  'endpoint' => 'https://hooks.slack.com/services/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',
 
   /*
   |-------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
   |
   */
 
-  'channel' => '#codetest',
+  'channel' => '#codedadtest',
 
   /*
   |-------------------------------------------------------------
