@@ -1,6 +1,5 @@
 <?php
 use CodeDad\Repositories\Deployments\DeploymentRepository;
-use Response;
 //TODO refactor out the input from the methods
 class DeploymentController extends BaseController
 {
