@@ -17,9 +17,6 @@ Event::listen('illuminate.query', function($query)
 });
 Route::get('/', function()
 {
-	Slack::send('Die!');
-	Slack::to('@pat')->send('am i real?');
-	Log::info("test");
 	return View::make('hello');
 });
 
