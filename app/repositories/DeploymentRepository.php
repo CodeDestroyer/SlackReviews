@@ -35,77 +35,70 @@ class DeploymentRepository implements IDeploymentRepository
 
     public function stageDeployment($jTicket)
     {
-        $ticket = $jTicket['jira_ticket'];
+        $ticketNumber = $jTicket['jira_ticket'];
         $step = 'isStaged';
-        $deployment = $this->_deployment->where('jira_ticket', $jTicket['jira_ticket'])->first();
+        $deployment = $this->_deployment->isNotBlocked()->where('jira_ticket', $jTicket['jira_ticket'])->first();
         if (empty($deployment)) {
-            throw new Exception("Jira Ticket {$ticket} Not Found");
+            throw new Exception("Jira Ticket {$ticketNumber} Not Found or is Blocked");
         }
         if ($deployment[$step]) {
-            throw new Exception("Jira Ticket {$ticket} is already in Staging");
+            throw new Exception("Jira Ticket {$ticketNumber} is already in Staging");
         }
         $this->_events->fire('deployment.staged', array($deployment));
-        $this->_toggleOn($deployment, $step);
+        $this->_toggle($deployment, $step);
 
     }
 
     public function deployDeployment($jTicket)
     {
-        $ticket = $jTicket['jira_ticket'];
+        $ticketNumber = $jTicket['jira_ticket'];
         $step = 'isDeployed';
         //TODO SCOPE THIS
-        $deployment = $this->_deployment->where('jira_ticket', $jTicket['jira_ticket'])
+        $deployment = $this->_deployment->isNotBlocked()->where('jira_ticket', $jTicket['jira_ticket'])
             ->where('isValidatedStaging', true)->first();
         if (empty($deployment)) {
-            throw new Exception("Jira Ticket {$ticket} Not Found or not ready");
+            throw new Exception("Jira Ticket {$ticketNumber} is either: not found, blocked, or not ready");
         }
         if ($deployment[$step]) {
-            throw new Exception("Jira Ticket {$ticket} is already in Production");
+            throw new Exception("Jira Ticket {$ticketNumber} is already in Production");
         }
-        $this->_toggleOn($deployment, $step);
+        $this->_toggle($deployment, $step);
 
     }
 
     public function validateDeployment($jTicket)
     {
-        $ticket = $jTicket['jira_ticket'];
+        $ticketNumber = $jTicket['jira_ticket'];
         $step = 'isValidated';
         //TODO SCOPE THIS
-        $deployment = $this->_deployment->where('jira_ticket', $jTicket['jira_ticket'])
+        $deployment = $this->_deployment->isNotBlocked()->where('jira_ticket', $jTicket['jira_ticket'])
             ->where('isDeployed', true)
             ->first();
         if (empty($deployment)) {
-            throw new Exception("Jira Ticket {$ticket} Not Found or not ready");
+            throw new Exception("Jira Ticket {$ticketNumber} is either: not found, blocked, or not ready");
         }
         if ($deployment[$step]) {
-            throw new Exception("Jira Ticket {$ticket} is already validated in Production");
+            throw new Exception("Jira Ticket {$ticketNumber} is already validated in Production");
         }
-        $this->_toggleOn($deployment, $step);
+        $this->_toggle($deployment, $step);
     }
 
     public function validateStaging($jTicket)
     {
-        $ticket = $jTicket['jira_ticket'];
+        $ticketNumber = $jTicket['jira_ticket'];
         $step = 'isValidatedStaging';
         //TODO SCOPE THIS
-        $deployment = $this->_deployment->where('jira_ticket', $jTicket['jira_ticket'])
+        $deployment = $this->_deployment->isNotBlocked()->where('jira_ticket', $jTicket['jira_ticket'])
             ->where('isStaged', true)
             ->first();
         if (empty($deployment)) {
-            throw new Exception("Jira Ticket {$ticket} Not Found or not ready");
+            throw new Exception("Jira Ticket {$ticketNumber} is either not found, blocked, or not ready");
         }
         if ($deployment[$step]) {
-            throw new Exception("Jira Ticket {$ticket} is already validated in Staging");
+            throw new Exception("Jira Ticket {$ticketNumber} is already validated in Staging");
         }
-        $this->_toggleOn($deployment, $step);
+        $this->_toggle($deployment, $step);
 
-    }
-
-    private function _toggleOn($deployment, $field)
-    {
-        $deployment->$field = true;
-        $deployment->save();
-        $this->_events->fire('deployment.' . $field, array($deployment));
     }
 
     public function listAllSorted()
@@ -127,5 +120,40 @@ class DeploymentRepository implements IDeploymentRepository
             }
         }
         return $sortedDeployments;
+    }
+
+    public function blockDeployment($ticket)
+    {
+        $ticketNumber = $ticket['jira_ticket'];
+        $comment = $ticket['block_comment'];
+        $deployment = $this->_deployment->where('jira_ticket', $ticketNumber)->first();
+        if (empty($deployment)) {
+            throw new Exception("Jira Ticket {$ticketNumber} not found");
+        }
+        $this->_toggle($deployment, 'isBlocked');
+        $deployment->blockReason = $comment;
+        $deployment->save();
+    }
+
+    public function unBlockDeployment($ticket)
+    {
+        $ticketNumber = $ticket['jira_ticket'];
+        $deployment = $this->_deployment->where('jira_ticket', $ticketNumber)
+                                        ->where('isBlocked', true)->first();
+        if (empty($deployment)) {
+            throw new Exception("Jira Ticket {$ticketNumber} not found or not Blocked");
+        }
+        $this->_toggle($deployment, 'isBlocked', false);
+    }
+
+    private function _toggle($deployment, $field,$way = true)
+    {
+        $deployment->$field = $way;
+        $deployment->save();
+        //TODO Refactor to fire on and off events rather then this hack.
+        if(!$way){
+            $field = $field."off";
+        }
+        $this->_events->fire('deployment.' . $field, array($deployment));
     }
 }

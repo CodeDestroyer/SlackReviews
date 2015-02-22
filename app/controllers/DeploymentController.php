@@ -67,4 +67,28 @@ class DeploymentController extends BaseController
         $viewData = View::make('listDeployments')->with('deployments', $deployments)->render();
         return Response::json($viewData);
     }
+
+    public function blockDeployment()
+    {
+        $request = Input::all();
+        try
+        {
+            $this->_deployment->blockDeployment($request);
+        } catch(Exception $e){
+            return Response::json($e->getMessage());
+        }
+        return Response::json("The deployment has been blocked");
+    }
+
+    public function unblockDeployment()
+    {
+        $request = Input::all();
+        try
+        {
+            $this->_deployment->unblockDeployment($request);
+        } catch(Exception $e){
+            return Response::json($e->getMessage());
+        }
+        return Response::json("The deployment has been unblocked");
+    }
 }

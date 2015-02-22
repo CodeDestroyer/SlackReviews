@@ -36,6 +36,8 @@ Route::group(['prefix' => 'deploy'], function () {
 	Route::get('validate', 'DeploymentController@validateDeployment');
 	Route::get('stagingValidate', 'DeploymentController@validateStaging');
 	Route::get('list', 'DeploymentController@listDeployments');
+	Route::get('block','DeploymentController@blockDeployment');
+	Route::get('unblock','DeploymentController@unblockDeployment');
 
 
 ;

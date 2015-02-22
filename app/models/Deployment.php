@@ -25,6 +25,10 @@ class Deployment extends Eloquent
         'jira_ticket' => 'unique:deploys'
     );
 
+    public function scopeisNotBlocked($query)
+    {
+        return $query->where('isBlocked', false);
+    }
 
     /**
      * @param $data

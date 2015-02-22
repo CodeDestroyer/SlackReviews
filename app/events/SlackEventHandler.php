@@ -2,7 +2,9 @@
 
 use Slack;
 use Illuminate\Support\Facades\Log;
-//TODO there is probaby a better way to organize the data to go in to the event and how to send messages. Varred out for debugging
+//TODO there is probaby a better way to organize the data to go in to the event and how to send messages. better way to set vars
+//TODO naming schema is poor
+//TODO maybe generic function for message to user and message to channel repeated a bunch.  Could be refactored down some
 /**
  * Class SlackEventHandler
  * @package CodeDad\Events
@@ -87,6 +89,21 @@ class SlackEventHandler
         Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been validated in Production!");
 
     }
+
+    public function OnDeploymentBlocked($event){
+        $user = $event['user'];
+        $ticket = $event['jira_ticket'];
+        $comment = $event['blockReason'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been blocked - {$comment}");
+        Slack::to("@{$user}")->send("Your Ticket {$ticket} has been blocked - {$comment}");
+    }
+
+    public function OnDeploymentUnblocked($event){
+        $user = $event['user'];
+        $ticket = $event['jira_ticket'];
+        Slack::to(self::Deploy_CHANNEL)->send("Ticket {$ticket} has been unblocked");
+        Slack::to("@{$user}")->send("Your Ticket {$ticket} has been unblocked");
+    }
     /**
      * Register the listeners for the subscriber.
      *
@@ -104,6 +121,8 @@ class SlackEventHandler
         $events->listen('deployment.isValidatedStaging','CodeDad\Events\SlackEventHandler@onStagingValidation');
         $events->listen('deployment.isDeployed','CodeDad\Events\SlackEventHandler@onDeployment');
         $events->listen('deployment.isValidated','CodeDad\Events\SlackEventHandler@onProductionValidation');
+        $events->listen('deployment.isBlocked', 'CodeDad\Events\SlackEventHandler@OnDeploymentBlocked');
+        $events->listen('deployment.isBlockedoff', 'CodeDad\Events\SlackEventHandler@OnDeploymentUnblocked');
 
 
     }
