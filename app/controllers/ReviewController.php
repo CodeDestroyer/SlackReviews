@@ -68,7 +68,7 @@ class ReviewController extends BaseController
             return Response::json($e->getMessage());
         }
 
-        return Response::json("You have claimed {$review['jira_ticket']}. Notes from {$review['request_user']}: {$review['request_comments']}");
+        return Response::json("You have claimed {$review['jira_ticket']}. You can get more info here {$review['repo_link']}}");
     }
 
     /**
