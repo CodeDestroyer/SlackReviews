@@ -10,11 +10,6 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
-Event::listen('illuminate.query', function($query)
-{
-	Log::info($query);
-});
 Route::get('/', function()
 {
 	return View::make('hello');

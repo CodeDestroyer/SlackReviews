@@ -104,7 +104,10 @@ class DeploymentRepository implements IDeploymentRepository
     public function listAllSorted()
     {
         $sortedDeployments = array("production");
-        $deployments = $this->_deployment->get();
+        $deployments = $this->_deployment
+            ->where('submission_time', '>=', Carbon::now()->SUBDay()->startOfDay())
+            ->orWhere('isValidated',false)
+            ->get();
         foreach ($deployments as $deployment) {
             //FIZZ BUZZ UP IN THIS BITCH
             if ($deployment['isValidated']) {
@@ -130,9 +133,9 @@ class DeploymentRepository implements IDeploymentRepository
         if (empty($deployment)) {
             throw new Exception("Jira Ticket {$ticketNumber} not found");
         }
-        $this->_toggle($deployment, 'isBlocked');
         $deployment->blockReason = $comment;
         $deployment->save();
+        $this->_toggle($deployment, 'isBlocked');
     }
 
     public function unBlockDeployment($ticket)
