@@ -15,7 +15,9 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-
+/**
+ * The Routes for Reviews
+ */
 Route::group(['prefix' => 'reviews'], function () {
 	Route::get('request', 'ReviewController@requestReview');
 	Route::get('complete', 'ReviewController@completeReview');
@@ -23,7 +25,9 @@ Route::group(['prefix' => 'reviews'], function () {
 	Route::get('list','ReviewController@listReviewsToUser');
 	Route::get('drop','ReviewController@dropReview');
 });
-
+/**
+ * Routes for Deploys
+ */
 Route::group(['prefix' => 'deploy'], function () {
 	Route::get('request', 'DeploymentController@addDeployment');
 	Route::get('stage', 'DeploymentController@stageDeployment');

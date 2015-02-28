@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Log;
  */
 class SlackEventHandler
 {
-    CONST REVIEW_CHANNEL = "#codedadtest";
-    CONST Deploy_CHANNEL = '#codedadtest';
+    CONST REVIEW_CHANNEL = "#code-review";
+    CONST Deploy_CHANNEL = '#merge_deploy';
 
     /**
      * Creates a review
