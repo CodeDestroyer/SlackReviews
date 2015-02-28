@@ -4,11 +4,11 @@ use CodeDad\Services\ReviewService;
 class ReviewController extends BaseController
 {
 
-    protected $_review;
+    protected $_reviewService;
 
     public function __construct(ReviewService $review)
     {
-        $this->_review = $review;
+        $this->_reviewService = $review;
     }
 
     /**
@@ -18,7 +18,7 @@ class ReviewController extends BaseController
     public function requestReview()
     {
         $request = Input::all();
-        $return = $this->_review->addCodeReview($request);
+        $return = $this->_reviewService->addCodeReview($request);
         return Response::json($return);
 
     }
@@ -29,7 +29,7 @@ class ReviewController extends BaseController
     public function completeReview()
     {
         $request = Input::all();
-        $return = $this->_review->completeCodeReview($request);
+        $return = $this->_reviewService->completeCodeReview($request);
         return Response::json($return);
     }
 
@@ -39,7 +39,7 @@ class ReviewController extends BaseController
      */
     public function listReviewsToUser()
     {
-        $reviews = $this->_review->listAll();
+        $reviews = $this->_reviewService->listAll();
         $viewData = View::make('listReviews')->with('reviews', $reviews)->render();
         Event::fire('review.sendList', array($viewData));
         return Response::json($viewData);
@@ -53,7 +53,7 @@ class ReviewController extends BaseController
     public function claimReview()
     {
         $request = Input::all();
-        $return = $this->_review->claimCodeReview($request);
+        $return = $this->_reviewService->claimCodeReview($request);
         return Response::json($return);
     }
 
@@ -63,7 +63,14 @@ class ReviewController extends BaseController
     public function dropReviewResponsibility()
     {
         $review = Input::all();
-        $return = $this->_review->dropCodeReviewResponsibility($review);
+        $return = $this->_reviewService->dropCodeReviewResponsibility($review);
+        return Response::json($return);
+    }
+
+    public function dropReview()
+    {
+        $review = Input::all();
+        $return = $this->_reviewService->dropCodeReview($review);
         return Response::json($return);
     }
 

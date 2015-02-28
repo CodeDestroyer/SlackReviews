@@ -48,7 +48,9 @@ class ReviewRepository implements IReviewRepository
         return $this->_review->where('jira_ticket', $ticket)
             ->where('completion_user', $name)->first();
     }
-
+    public function grabReviewByTicketNumber($ticket){
+        return $this->_review->where('jira_ticket', $ticket)->first();
+    }
     public function grabUnassignedReview($ticket){
         return $this->_review->where('jira_ticket', $ticket)->unassigned()->first();
     }
@@ -80,8 +82,12 @@ class ReviewRepository implements IReviewRepository
         $review->save();
     }
 
-    public function dropReview($request)
+    public function dropReviewByTicketNumber($ticket)
     {
+        $review = $this->_review->where('jira_ticket',$ticket)->delete();
+        if(!$review){
+            throw new Exception("Ticket Does Not Exist");
+        }
 
     }
 

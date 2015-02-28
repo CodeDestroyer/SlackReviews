@@ -47,7 +47,7 @@ class SlackEventHandler
         $reviewer = "@{$event['completion_user']}";
         $comments = $event["completion_comments"];
         $ticket =   $event['jira_ticket'];
-        Slack::to($orginUser)->send("Your ticket {$ticket} passed the code review!  Here are {$reviewer}'s comments: {$comments}'");
+        Slack::to($orginUser)->send("Your ticket {$ticket} passed the code review!");
         Slack::to(self::REVIEW_CHANNEL)->send("{$ticket} passed the code review by {$reviewer}");
     }
 

@@ -81,6 +81,16 @@ class ReviewService implements IReviewService
         return "You have been removed from the ticket";
     }
 
+    public function dropCodeReview($review)
+    {
+        $ticket = $review['jira_ticket'];
+        try{
+            $this->_reviewRepo->dropReviewByTicketNumber($ticket);
+        } catch (Exception $e){
+            return $e->getMessage();
+        }
+        return "Ticket {$ticket} has been removed.";
+    }
     private function _fireEvent($name,$data){
         $this->_event->fire($name, array($data));
     }
