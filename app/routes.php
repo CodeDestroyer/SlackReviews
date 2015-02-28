@@ -25,6 +25,7 @@ Route::group(['prefix' => 'reviews'], function () {
 	Route::get('list','ReviewController@listReviewsToUser');
 	Route::get('dropUser','ReviewController@dropReviewResponsibility');
 	Route::get('dropTicket','ReviewController@dropReview');
+	Route::get('details','ReviewController@listReviewDetails');
 });
 /**
  * Routes for Deploys

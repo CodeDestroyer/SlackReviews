@@ -9,5 +9,7 @@ interface IReviewRepository
     public function dropReviewResponsibility($review);
     public function grabUncompletedReviewByUser($ticket,$user);
     public function grabReviewByName($review,$user);
+    public function dropReviewByTicketNumber($ticket);
+    public function grabReviewByTicketNumber($ticket);
     public function listAll();
 }

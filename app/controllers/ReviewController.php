@@ -39,13 +39,22 @@ class ReviewController extends BaseController
      */
     public function listReviewsToUser()
     {
-        $reviews = $this->_reviewService->listAll();
-        $viewData = View::make('listReviews')->with('reviews', $reviews)->render();
+        $request = Input::all();
+        $viewName = ($request['verbose'] ? 'listReviewsVerbose' :'listReviews');
+        $reviews = $this->_reviewService->listCodeReviews();
+        $viewData = View::make($viewName)->with('reviews', $reviews)->render();
         Event::fire('review.sendList', array($viewData));
         return Response::json($viewData);
 
     }
 
+    public function listReviewDetails()
+    {
+        $request = Input::all();
+        $return = $this->_reviewService->getCodeReviewDetails($request);
+        return Response::json($return);
+
+    }
     /**
      * Claim a Code Review
      * @return JSON either confirmation or rejection of claim
