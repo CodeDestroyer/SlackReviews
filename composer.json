@@ -16,6 +16,7 @@
 			"app/models",
 		  	"app/repositories",
 		  	"app/providers",
+		  	"app/services",
 		  	"app/events",
 			"app/database/migrations",
 			"app/database/seeds",

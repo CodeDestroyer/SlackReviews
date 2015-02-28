@@ -1,12 +1,12 @@
 <?php
-use CodeDad\Repositories\Review\ReviewRepository;
-
+use CodeDad\Services\ReviewService;
+//TODO I still feel there is a way to in
 class ReviewController extends BaseController
 {
 
     protected $_review;
 
-    public function __construct(ReviewRepository $review)
+    public function __construct(ReviewService $review)
     {
         $this->_review = $review;
     }
@@ -18,12 +18,9 @@ class ReviewController extends BaseController
     public function requestReview()
     {
         $request = Input::all();
-        try {
-            $this->_review->addReview($request);
-        } catch (Exception $e) {
-            return Response::json($e->getMessage());
-        }
-        return Response::json("Code Review Request Successful");
+        $return = $this->_review->addCodeReview($request);
+        return Response::json($return);
+
     }
 
     /**
@@ -32,12 +29,8 @@ class ReviewController extends BaseController
     public function completeReview()
     {
         $request = Input::all();
-        try {
-            $this->_review->completeReview($request);
-        } catch (Exception $e) {
-            return Response::json($e->getMessage());
-        }
-        return Response::json("Thank you for code-review!");
+        $return = $this->_review->completeCodeReview($request);
+        return Response::json($return);
     }
 
     /**
@@ -60,29 +53,18 @@ class ReviewController extends BaseController
     public function claimReview()
     {
         $request = Input::all();
-
-        try {
-            $review = $this->_review->claimReview($request);
-
-        } catch (Exception $e) {
-            return Response::json($e->getMessage());
-        }
-
-        return Response::json("You have claimed {$review['jira_ticket']}. You can get more info here {$review['repo_link']}}");
+        $return = $this->_review->claimCodeReview($request);
+        return Response::json($return);
     }
 
     /**
      * @return mixed
      */
-    public function dropReview()
+    public function dropReviewResponsibility()
     {
         $review = Input::all();
-        try{
-            $this->_review->dropReview($review);
-        } catch(Exception $e) {
-            return Response::json($e->getMessage());
-        }
-        return Response::json("You have successfully dropped the review");
+        $return = $this->_review->dropCodeReviewResponsibility($review);
+        return Response::json($return);
     }
 
 }

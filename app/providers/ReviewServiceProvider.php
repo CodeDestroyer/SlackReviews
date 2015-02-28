@@ -8,8 +8,8 @@ class ReviewServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'CodeDad\Contracts\Review\IReviewRepository',
-            'CodeDad\Repositories\Review\ReviewRepository'
+            'CodeDad\Contracts\Reviews\IReviewService',
+            'CodeDad\Services\ReviewService'
         );
     }
 

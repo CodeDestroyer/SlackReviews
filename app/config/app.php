@@ -122,9 +122,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Maknz\Slack\SlackServiceProvider',
+		'CodeDad\Reviews\ReviewRepoServiceProvider',
 		'CodeDad\Reviews\ReviewServiceProvider',
 		'CodeDad\Events\EventServiceProvider',
-		'CodeDad\Deployments\DeploymentServiceProvider',
+		'CodeDad\Deployments\DeploymentRepoServiceProvider',
 
 	),
 

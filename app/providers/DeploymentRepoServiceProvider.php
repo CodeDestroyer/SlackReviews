@@ -2,14 +2,14 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class DeploymentServiceProvider extends ServiceProvider
+class DeploymentRepoServiceProvider extends ServiceProvider
 {
 
     public function register()
     {
         $this->app->bind(
             'CodeDad\Contracts\Deployments\IDeploymentRepository',
-            'CodeDad\Repositories\Deployments\DeploymentRepository'
+            'CodeDad\Repositories\DeploymentRepository'
         );
     }
 

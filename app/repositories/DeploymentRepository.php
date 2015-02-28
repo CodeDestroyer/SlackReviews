@@ -1,4 +1,4 @@
-<?php namespace CodeDad\Repositories\Deployments;
+<?php namespace CodeDad\Repositories;
 
 use Carbon;
 use CodeDad\Contracts\Deployments\IDeploymentRepository;
