@@ -6,6 +6,6 @@ No Code to Review!
     <?php foreach($reviews as $review): ?>
 <?php echo "Ticket: *{$review['jira_ticket']}* created by {$review['request_user']} posted ".
             \Carbon\Carbon::createFromTimeStamp(strtotime($review['submitted']))->diffForHumans().
-            ($review['completion_user'] ? " *assigned to {$review['completion_user']}* " : "" )."\r\n" ; ?>
+            ($review['completion_user'] ? " *claimed by {$review['completion_user']}* " : "" )."\r\n" ; ?>
     <?php endforeach; ?>
 <?php endif; ?>

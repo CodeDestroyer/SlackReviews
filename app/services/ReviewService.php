@@ -83,7 +83,7 @@ class ReviewService implements IReviewService
         $user = $review['completion_user'];
         try {
             $review = $this->_reviewRepo->grabUnassignedReview($ticket);
-            $this->_reviewRepo->claimReview($review, $user);
+            $this->_reviewRepo->claimReviewResponsibility($review, $user);
             $this->_fireEvent('review.claimed', $review);
         } catch (Exception $e) {
             $this->_fireEvent('review.notAvail', array('user' => $user, 'ticket' => $ticket));

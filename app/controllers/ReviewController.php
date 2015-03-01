@@ -40,7 +40,7 @@ class ReviewController extends BaseController
     public function listReviewsToUser()
     {
         $request = Input::all();
-        $viewName = ($request['verbose'] ? 'listReviewsVerbose' :'listReviews');
+        $viewName = ($request['verbose'] == "true" ? 'listReviewsVerbose' :'listReviews');
         $reviews = $this->_reviewService->listCodeReviews();
         $viewData = View::make($viewName)->with('reviews', $reviews)->render();
         Event::fire('review.sendList', array($viewData));
