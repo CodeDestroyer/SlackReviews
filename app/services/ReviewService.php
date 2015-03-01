@@ -40,11 +40,11 @@ class ReviewService implements IReviewService
     {
         try {
             $this->_reviewRepo->addReview($review);
-            $this->_event->fire('review.submitted', array($review));
+            $this->_fireEvent('review.submitted', $review);
             return "Code Review Request Successful";
 
         } catch (Exception $e) {
-            $this->_event->fire('review.exists', array($review));
+            $this->_fireEvent('review.exists',$review);
             return $e->getMessage();
         }
     }
