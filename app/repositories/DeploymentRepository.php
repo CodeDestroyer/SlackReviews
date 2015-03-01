@@ -10,27 +10,21 @@ use Exception;
 class DeploymentRepository implements IDeploymentRepository
 {
     protected $_deployment;
-    /**
-     * @var Dispatcher
-     */
-    protected $_events;
 
-    public function __construct(Deployment $deployment, Dispatcher $events)
+    public function __construct(Deployment $deployment)
     {
         $this->_deployment = $deployment;
-        $this->_events = $events;
     }
 
-    //TODO VALIDATE THAT THIS HAS BEEN CODE REVIEWED
-    public function addDeployment($jTicket)
+    public function createDeployment($deployment)
     {
-        if ($this->_deployment->validate($jTicket)) {
-            $jTicket['submission_time'] = Carbon::now();
-            $this->_deployment->create($jTicket);
-            $this->_events->fire('deployment.submitted', array($jTicket));
+        if ($this->_deployment->validate($deployment)) {
+            $deployment['submission_time'] = Carbon::now();
+            $this->_deployment->create($deployment);
         } else {
-            throw new Exception("Deployment Already Exists!");
+            throw new Exception("Deployment Already Exists");
         }
+        return $deployment;
     }
 
     public function stageDeployment($jTicket)

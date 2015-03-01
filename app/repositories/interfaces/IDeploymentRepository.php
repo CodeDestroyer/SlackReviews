@@ -3,6 +3,6 @@
 interface IDeploymentRepository
 {
 
-    public function addDeployment($deployment);
+    public function createDeployment($deployment);
 
 }
