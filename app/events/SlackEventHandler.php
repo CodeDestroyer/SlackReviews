@@ -4,6 +4,7 @@ use Slack;
 //TODO there is probaby a better way to organize the data to go in to the event and how to send messages. better way to set vars
 //TODO naming schema is poor
 //TODO maybe generic function for message to user and message to channel repeated a bunch.  Could be refactored down some
+//TODO maybe two files and a base class?
 /**
  * Class SlackEventHandler
  * @package CodeDad\Events
@@ -119,12 +120,12 @@ class SlackEventHandler
         $events->listen('review.completed','CodeDad\Events\SlackEventHandler@onReviewComplete');
         $events->listen('review.dropped','CodeDad\Events\SlackEventHandler@onReviewDropped');
         $events->listen('deployment.submitted','CodeDad\Events\SlackEventHandler@onDeploymentCreation');
-        $events->listen('deployment.staged','CodeDad\Events\SlackEventHandler@onDeploymentStaged');
-        $events->listen('deployment.isValidatedStaging','CodeDad\Events\SlackEventHandler@onStagingValidation');
-        $events->listen('deployment.isDeployed','CodeDad\Events\SlackEventHandler@onDeployment');
-        $events->listen('deployment.isValidated','CodeDad\Events\SlackEventHandler@onProductionValidation');
-        $events->listen('deployment.isBlocked', 'CodeDad\Events\SlackEventHandler@OnDeploymentBlocked');
-        $events->listen('deployment.isBlockedoff', 'CodeDad\Events\SlackEventHandler@OnDeploymentUnblocked');
+        $events->listen('deployment.isStaged.1','CodeDad\Events\SlackEventHandler@onDeploymentStaged');
+        $events->listen('deployment.isValidatedStaging.1','CodeDad\Events\SlackEventHandler@onStagingValidation');
+        $events->listen('deployment.isDeployed.1','CodeDad\Events\SlackEventHandler@onDeployment');
+        $events->listen('deployment.isValidated.1','CodeDad\Events\SlackEventHandler@onProductionValidation');
+        $events->listen('deployment.isBlocked.1', 'CodeDad\Events\SlackEventHandler@OnDeploymentBlocked');
+        $events->listen('deployment.isBlocked.0', 'CodeDad\Events\SlackEventHandler@OnDeploymentUnblocked');
 
 
     }

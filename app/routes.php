@@ -32,13 +32,11 @@ Route::group(['prefix' => 'reviews'], function () {
  */
 Route::group(['prefix' => 'deploy'], function () {
 	Route::get('request', 'DeploymentController@addDeployment');
-	Route::get('stage', 'DeploymentController@stageDeployment');
-	Route::get('deploy', 'DeploymentController@deployDeployment');
-	Route::get('validate', 'DeploymentController@validateDeployment');
-	Route::get('stagingValidate', 'DeploymentController@validateStaging');
+	Route::get('toggleStep', 'DeploymentController@toggleStepOfDeployment');
 	Route::get('list', 'DeploymentController@listDeployments');
 	Route::get('block','DeploymentController@blockDeployment');
 	Route::get('unblock','DeploymentController@unblockDeployment');
+	Route::get('delete','DeploymentController@removeDeployment');
 
 
 ;

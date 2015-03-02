@@ -122,10 +122,12 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Maknz\Slack\SlackServiceProvider',
+		'CodeDad\Helpers\FriendlyMessageServiceProvider',
 		'CodeDad\Reviews\ReviewRepoServiceProvider',
 		'CodeDad\Reviews\ReviewServiceProvider',
 		'CodeDad\Events\EventServiceProvider',
 		'CodeDad\Deployments\DeploymentRepoServiceProvider',
+		'CodeDad\Reviews\DeploymentServiceProvider',
 
 	),
 
@@ -195,6 +197,7 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Slack' 			=> 'Maknz\Slack\Facades\Slack',
 		'Carbon'			=> 'Carbon\Carbon',
+		'friendlyMessage'   => 'CodeDad\Facades\FriendlyMessageFacade'
 
 	),
 

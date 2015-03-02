@@ -1,69 +1,31 @@
 <?php
-use CodeDad\Repositories\DeploymentRepository;
+use CodeDad\Services\DeploymentService;
 //TODO refactor out the input from the methods
 class DeploymentController extends BaseController
 {
 
-    protected $_deployment;
+    protected $_deploymentService;
 
-    public function __construct(DeploymentRepository $deployment)
+    public function __construct(DeploymentService $deploymentService)
     {
-        $this->_deployment = $deployment;
+        $this->_deploymentService = $deploymentService;
     }
 
     public function addDeployment(){
         $request = Input::all();
-        try {
-            $this->_deployment->addDeployment($request);
-        } catch (Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("Your Ticket is now in the Staging Queue.");
+        $return = $this->_deploymentService->addDeployment($request);
+        return Response::json($return);
     }
 
-    public function stageDeployment(){
+    public function toggleStepOfDeployment(){
         $request = Input::all();
-        try {
-            $this->_deployment->stageDeployment($request);
-        } catch (Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("The Ticket is now ready to be validated in staging");
-    }
-
-    public function deployDeployment(){
-        $request = Input::all();
-        try {
-            $this->_deployment->deployDeployment($request);
-        } catch (Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("The Ticket is ready for Production Validation");
-    }
-
-    public function validateStaging(){
-        $request = Input::all();
-        try {
-            $this->_deployment->validateStaging($request);
-        } catch (Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("Your Ticket is ready for Production");
-    }
-
-    public function validateDeployment(){
-        $request = Input::all();
-        try {
-            $this->_deployment->validateDeployment($request);
-        } catch (Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("The ticket can now be moved to production in Jira");
+        $return = $this->_deploymentService->toggleStep($request);
+        return Response::json($return);
     }
 
     public function listDeployments()
     {
-        $deployments = $this->_deployment->listAllSorted();
+        $deployments = $this->_deploymentService->listAllSorted();
         $viewData = View::make('listDeployments')->with('deployments', $deployments)->render();
         return Response::json($viewData);
     }
@@ -71,24 +33,21 @@ class DeploymentController extends BaseController
     public function blockDeployment()
     {
         $request = Input::all();
-        try
-        {
-            $this->_deployment->blockDeployment($request);
-        } catch(Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("The deployment has been blocked");
+        $return = $this->_deploymentService->blockDeployment($request);
+        return Response::json($return);
     }
 
     public function unblockDeployment()
     {
         $request = Input::all();
-        try
-        {
-            $this->_deployment->unblockDeployment($request);
-        } catch(Exception $e){
-            return Response::json($e->getMessage());
-        }
-        return Response::json("The deployment has been unblocked");
+        $return = $this->_deploymentService->unBlockDeployment($request);
+        return Response::json($return);
+    }
+
+    public function removeDeployment()
+    {
+        $request = Input::all();
+        $return = $this->_deploymentService->deleteDeployment($request);
+        return Response::json($return);
     }
 }

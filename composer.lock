@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "21553e701437a7368e90b1e48f6f1921",
+    "hash": "56df36c0b77e84bc19e14c848b6f81eb",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -55,25 +55,23 @@
         },
         {
             "name": "d11wtq/boris",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/d11wtq/boris.git",
-                "reference": "125dd4e5752639af7678a22ea597115646d89c6e"
+                "reference": "fabd509f0a96669e98f38bc7afcf7b1465e183f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/d11wtq/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
-                "reference": "125dd4e5752639af7678a22ea597115646d89c6e",
+                "url": "https://api.github.com/repos/d11wtq/boris/zipball/fabd509f0a96669e98f38bc7afcf7b1465e183f1",
+                "reference": "fabd509f0a96669e98f38bc7afcf7b1465e183f1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
-            },
-            "suggest": {
                 "ext-pcntl": "*",
                 "ext-posix": "*",
-                "ext-readline": "*"
+                "ext-readline": "*",
+                "php": ">=5.3.0"
             },
             "bin": [
                 "bin/boris"
@@ -85,7 +83,11 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2014-01-17 12:21:18"
+            "license": [
+                "MIT"
+            ],
+            "description": "A tiny, but robust REPL (Read-Evaluate-Print-Loop) for PHP.",
+            "time": "2015-02-26 06:56:57"
         },
         {
             "name": "doctrine/annotations",
@@ -681,16 +683,16 @@
         },
         {
             "name": "guzzlehttp/ringphp",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "a903f51b692427318bc813217c0e6505287e79a4"
+                "reference": "f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/a903f51b692427318bc813217c0e6505287e79a4",
-                "reference": "a903f51b692427318bc813217c0e6505287e79a4",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4",
+                "reference": "f43ab34aad69ca0ba04172cf2c3cd5c12fc0e5a4",
                 "shasum": ""
             },
             "require": {
@@ -727,7 +729,8 @@
                     "homepage": "https://github.com/mtdowling"
                 }
             ],
-            "time": "2014-12-11 05:50:32"
+            "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "time": "2015-02-26 20:43:09"
         },
         {
             "name": "guzzlehttp/streams",
@@ -986,16 +989,16 @@
         },
         {
             "name": "maknz/slack",
-            "version": "1.1.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maknz/slack.git",
-                "reference": "855944c080aabcd72d43cae0cd2046fbd50f5a4f"
+                "reference": "b9e693851b31425bea9d4bc1ed15248ffeb53d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maknz/slack/zipball/855944c080aabcd72d43cae0cd2046fbd50f5a4f",
-                "reference": "855944c080aabcd72d43cae0cd2046fbd50f5a4f",
+                "url": "https://api.github.com/repos/maknz/slack/zipball/b9e693851b31425bea9d4bc1ed15248ffeb53d98",
+                "reference": "b9e693851b31425bea9d4bc1ed15248ffeb53d98",
                 "shasum": ""
             },
             "require": {
@@ -1026,12 +1029,12 @@
                     "email": "github@mak.geek.nz"
                 }
             ],
-            "description": "A simple PHP package for sending messages to Slack, with Laravel 4 support",
+            "description": "A simple PHP package for sending messages to Slack, with a focus on ease of use and elegant syntax. Includes Laravel support out of the box.",
             "keywords": [
                 "laravel",
                 "slack"
             ],
-            "time": "2015-02-01 07:24:51"
+            "time": "2015-02-22 06:09:15"
         },
         {
             "name": "monolog/monolog",

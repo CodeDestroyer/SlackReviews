@@ -30,6 +30,23 @@ class Deployment extends Eloquent
         return $query->where('isBlocked', false);
     }
 
+    //Shell for Staging since its first step
+    public function scopeisStaged($query)
+    {
+        return $query;
+    }
+    public function scopeisValidatedStaging($query)
+    {
+        return $query->where('isStaged', true);
+    }
+    public function scopeisDeployed($query)
+    {
+        return $query->where('isValidatedStaging', true);
+    }
+    public function scopeisValidated($query)
+    {
+        return $query->where('isDeployed', true);
+    }
     /**
      * @param $data
      * @return bool
