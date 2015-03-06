@@ -76,7 +76,7 @@ class DeploymentRepository implements IDeploymentRepository
     public function grabDeploymentForList()
     {
         return $this->_deployment
-            ->where('submission_time', '>=', Carbon::now()->SUBDay()->startOfDay())
+            ->where('completion_time', '>=', Carbon::now()->SUBDay()->startOfDay())
             ->orWhere('isValidated', false)
             ->get();
     }
@@ -102,5 +102,10 @@ class DeploymentRepository implements IDeploymentRepository
             throw new Exception("Ticket Does Not Exist");
         }
 
+    }
+
+    public function completeTicket($deployment){
+        $deployment->completion_time = Carbon::now();
+        $deployment->save();
     }
 }

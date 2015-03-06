@@ -63,6 +63,9 @@ class DeploymentService implements IDeploymentService
             $deployment = $this->_deploymentRepo->grabDeploymentByStep($ticketNumber, $step);
             $this->_validateStep($deployment, $step);
             $this->_toggle($deployment, $step, true);
+            if($step = 'isValidated'){
+                $this->_deploymentRepo->completeTicket($deployment);
+            }
         } catch (Exception $e) {
             return $e->getMessage();
         }
