@@ -1,4 +1,6 @@
 /vendor
 /node_modules
+/hubot
 .env*
 .idea/*
+.DS_Store
