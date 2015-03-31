@@ -26,7 +26,7 @@ filling in the data based on your setup
 
 This will allow you to test slack group messages without spamming the group.
 
-The slackend point is =`xoxb-4242334240-lrXGW8IW2jKuYCvHVhPJ8EUo` for zCodeDadDev
+The slackend point is =`https://hooks.slack.com/services/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` for CodeDad
 
 Once this is all completed from the command in the root directory run the following command
 
