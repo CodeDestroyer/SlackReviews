@@ -10,15 +10,16 @@ After pulling down the lastest from it you should SSH into the box and install c
 once installed run `composer update` inside the code's root directory that should install the rest of the dependencies for you.
 
 Laravel uses `.env.php` files for configuration I have placed a sample file in the repo but a first step is to create your `.env.local.php` file with the following
-<pre><code><?php
-return array(
-    'DB_USER' => '',
-    'DB_PASSWORD' => '',
-    'deployChannel' => '',
-    'reviewChannel' => '',
-    'slackEndPoint' => ''
-);
-</code></pre>
+
+    <?php
+        return array(
+            'DB_USER' => '',
+            'DB_PASSWORD' => '',
+            'deployChannel' => '',
+            'reviewChannel' => '',
+            'slackEndPoint' => ''
+        );
+
 
 filling in the data based on your setup
 `deployChannel` and `reviewChannel` should be a __PRIVATE__ channel that you create and invite the devcodedad into to test.   For example mine is #testCodeDadPat
