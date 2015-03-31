@@ -126,6 +126,7 @@ Make sure the IP address listed is the one you set in your `Homestead.yaml` file
 
 ##Sample Homstead.yaml file
 Here is my sample homestead file
+
     ip: "192.168.10.10"
     memory: 2048
     cpus: 1
