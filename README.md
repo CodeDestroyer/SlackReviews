@@ -25,7 +25,7 @@ filling in the data based on your setup
 
 This will allow you to test slack group messages without spamming the group.
 
-The slackend point is =xoxb-4242334240-lrXGW8IW2jKuYCvHVhPJ8EUo
+The slackend point is =`xoxb-4242334240-lrXGW8IW2jKuYCvHVhPJ8EUo` for zCodeDadDev
 
 Once this is all completed from the command in the root directory run the following command
 
@@ -126,24 +126,23 @@ Make sure the IP address listed is the one you set in your `Homestead.yaml` file
 
 ##Sample Homstead.yaml file
 Here is my sample homestead file
-<pre><code>ip: "192.168.10.10"
-memory: 2048
-cpus: 1
-authorize: ~/.ssh/id_rsa.pub
-keys:
-    - ~/.ssh/id_rsa
-folders:
-    - map: /Users/pcunningham/Projects/slackBot
-      to: /home/vagrant/Code
-sites:
-    - map: homestead.app
-      to: /home/vagrant/Code/public
-databases:
-    - homestead
-variables:
-    - key: APP_ENV
-      value: local
-</code></pre>
+    ip: "192.168.10.10"
+    memory: 2048
+    cpus: 1
+    authorize: ~/.ssh/id_rsa.pub
+    keys:
+        - ~/.ssh/id_rsa
+    folders:
+        - map: /Users/pcunningham/Projects/slackBot
+            to: /home/vagrant/Code
+    sites:
+        - map: homestead.app
+            to: /home/vagrant/Code/public
+    databases:
+        - homestead
+    variables:
+        - key: APP_ENV
+        value: local
 ##Daily Usage
 
 ###Connecting Via SSH
