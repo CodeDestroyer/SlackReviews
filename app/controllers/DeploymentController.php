@@ -1,6 +1,7 @@
 <?php
 use CodeDad\Services\DeploymentService;
 //TODO refactor out the input from the methods
+//TODO refactor verbs to be a param and to cut down methods
 class DeploymentController extends BaseController
 {
 
